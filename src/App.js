@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import DiapersCatalog from "./views/DiapersCatalog";
+import { ThemeProvider, createTheme } from '@mui/material';
+import { blue, green } from '@mui/material/colors';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = () => {
+    const theme = createTheme({
+       palette: {
+    primary: {
+      main: blue[500],
+    },
+    tonalOffset: {
+      light: 0.1,
+      dark: 0.9,
+    },
+  },
+    });
+
+    return (
+        <ThemeProvider theme={theme}>
+            <DiapersCatalog />
+        </ThemeProvider>
+    );
+};
 
 export default App;
