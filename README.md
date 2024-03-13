@@ -26,3 +26,6 @@ To run the Diaper Catalog locally on your machine, follow these steps:
     Run npm install to install the project dependencies.
     After the installation is complete, run npm start to start the development server.
     Open your web browser and go to http://localhost:3000 to view the application.
+Live Demo
+
+Check out the live demo of the Diaper Catalog at https://diaper-catalog.netlify.app/.
