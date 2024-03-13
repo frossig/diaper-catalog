@@ -1,23 +1,23 @@
-#Diaper Catalog
+# Diaper Catalog
 
 Welcome to the Diaper Catalog project!
 
 This project is a single-page view where users can browse through an e-commerce catalog of diapers. Upon entering the catalog, a fetch request is made to retrieve data to display in cards.
-###Features
+### Features
 
     Product Cards: Each product is displayed as a card, showcasing details such as presentation numbers, availability, product image, prices, and average prices.
     Stock Availability: Users can quickly identify whether a product is in stock or out of stock through visual indicators.
     Dynamic Pricing: Prices are dynamically updated based on the selected variant.
 
 
-###Technologies Used
+### Technologies Used
 
     React - vanilla
     Material-UI - theming
     Axios for fetching data
     Netlify for project hosting
 
-###Installation
+### Installation
 
 To run the Diaper Catalog locally on your machine, follow these steps:
 
@@ -26,6 +26,6 @@ To run the Diaper Catalog locally on your machine, follow these steps:
     Run npm install to install the project dependencies.
     After the installation is complete, run npm start to start the development server.
     Open your web browser and go to http://localhost:3000 to view the application.
-###Live Demo
+### Live Demo
 
 Check out the live demo of the Diaper Catalog at https://diaper-catalog.netlify.app/.
