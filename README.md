@@ -2,13 +2,13 @@ Diaper Catalog
 
 Welcome to the Diaper Catalog project!
 
-This project is a single-page view where users can browse through an e-commerce catalog of diapers. Upon entering the catalog, a fetch request is made to retrieve data including information about different diaper presentations, their availability in stock, product images, prices, and average prices.
+This project is a single-page view where users can browse through an e-commerce catalog of diapers. Upon entering the catalog, a fetch request is made to retrieve data to display in cards.
 Features
 
     Product Cards: Each product is displayed as a card, showcasing details such as presentation numbers, availability, product image, prices, and average prices.
     Stock Availability: Users can quickly identify whether a product is in stock or out of stock through visual indicators.
-    Dynamic Pricing: Prices are dynamically updated based on the selected variant, providing users with accurate pricing information.
-    Smooth Scrolling: The smooth scrolling feature enhances the user experience, allowing seamless navigation through the catalog.
+    Dynamic Pricing: Prices are dynamically updated based on the selected variant.
+
 
 Technologies Used
 
