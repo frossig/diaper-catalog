@@ -1,13 +1,70 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Stack, Typography, useTheme } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import React, { useState } from 'react'
 
-import React from 'react'
+
+
+const style = {
+    card: {
+        display: { xs: 'block', xl: "flex" }
+    },
+    image: {
+        width: { xs: 'unset', xl: 250 },
+        height: { xs: 140, xl: 250 },
+        objectFit: "cover"
+    },
+    content: {
+        display: "flex",
+        gap: "1rem",
+        flexDirection: "column"
+    },
+    details: {
+        display: "flex",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: { xs: "column", lg: "row" }
+    },
+    pricing: {
+        width: { xs: "100%", lg: "unset" },
+        textAlign: "start"
+    },
+    stock: {
+        display: "flex",
+        width: "100%",
+        alignItems: "center",
+        // justifyContent: { xs: "center", lg: "start" }
+    },
+    stockTitle: {
+        marginRight: { md: "1rem", xl: "2rem" }
+    },
+    actions: {
+        flexDirection: { xs: "column", lg: "row" },
+        padding: "unset"
+    },
+    presentation: {
+        width: { xs: "100%", lg: "unset" },
+        textAlign: "start"
+    },
+    stack: {
+        display: "flex",
+        alignItems: "center",
+        gap: ".5rem",
+        justifyContent: "center"
+    },
+    button: {
+        fontWeight: "bold"
+    }
+
+}
 
 const DiaperCard = (props) => {
+    const theme = useTheme();
+    const currentVariant = props.group.variants[0];
+    const [selectedVariant, setSelectedVariant] = useState(currentVariant);
 
-    //sumando un grupo de números y dividiendo a continuación por el recuento de esos números. 
-    console.log("🚀 ~ GROUP:", props.group);
+    //promedio = suma de números / cantidad de números sumados
     const calculateAveragePrice = (variants) => {
         let total = 0;
 
@@ -19,49 +76,58 @@ const DiaperCard = (props) => {
         return averagePrice;
     };
 
+    const handleSelectVariant = (variant) => setSelectedVariant(variant);
 
     const findGroupStock = variant => {
         return Object.keys(variant).includes(props.group.option)
     }
-    
+
     const isGroupInStock = findGroupStock(props.group.presentationsBySizeInStock);
     const averagePrice = calculateAveragePrice(props.group.variants);
 
+
+
+
+
     return (
-        <Card sx={{ maxWidth: 450 }}>
+        <Card raised sx={style.card}>
             <CardMedia
-                sx={{ height: 140 }}
-                image="https://cdn.shopify.com/s/files/1/0071/2664/6836/products/05912-BN_single_NB.png?v=1643872426"
-                title="green iguana"
+                sx={style.image}
+                image={props.group.image.src}
+                title={props.group.vendor + ' ' + props.group.option}
             />
-            <CardContent sx={{ display: "flex", gap: "1rem", flexDirection: "column" }}>
+            <CardContent sx={style.content}>
                 <Typography gutterBottom variant="h5" component="div">
-                    {props.group.vendor} - {props.group.option}
+                    {props.group.vendor + ' - ' + props.group.option}
                 </Typography>
-                <Box sx={{ display: "flex", width: "100%", alignItems: "center", justifyContent: "space-between" }}>
-                    <Typography gutterBottom variant="h6" component="div">
-                        Price: $10
+                <Box sx={style.details}>
+                    <Typography gutterBottom variant="h6" component="div" sx={style.pricing}>
+                        Price: ${selectedVariant.price}
                     </Typography>
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="h6" component="div" sx={style.pricing}>
                         Average Price: ${averagePrice}
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", width: "100%", alignItems: "center", gap: "2.5rem", }}>
-                    <Typography variant="h6" component="div">
+                <Box sx={style.stock}>
+                    <Typography variant="h6" component="div" sx={style.stockTitle}>
                         Availability
                     </Typography>
                     {
                         isGroupInStock ? (
                             <Chip
-                                icon={<CheckCircleOutlineIcon />}
+                                icon={<CheckCircleOutlineIcon sx={{
+                                    '&.MuiChip-icon': {
+                                        color: theme.palette.primary.light
+                                    }
+                                }} />}
                                 label="In Stock!"
-                                color="success"
+                                sx={{ backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.light }}
                             />
 
                         ) : (
                             <Chip
                                 icon={<SentimentVeryDissatisfiedIcon />}
-                                label="OUT of Stock"
+                                label="NO Stock"
                                 color="error"
                                 variant="outlined"
                             />
@@ -70,21 +136,18 @@ const DiaperCard = (props) => {
 
                     }
                 </Box>
-                {/* <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                </Typography> */}
-                <CardActions >
-                    <Stack direction="row" sx={{ display: "flex", alignItems: "center", gap: ".5rem", justifyContent: "center" }}>
-                        <Typography variant="h6" >Presentations</Typography>
-                        {
-                            props.group.variants.map((variant, idx) => (
-                                <Button key={idx} variant="contained" size="small">{variant.option2}</Button>
-
+                <CardActions sx={style.actions} >
+                    <Typography variant="h6" sx={style.presentation}>Presentations</Typography>
+                    <Stack direction="row" sx={style.stack}>
+                        {props.group.variants
+                            .sort((a, b) => (a.option2) - (b.option2))
+                            .map((variant, idx) => (
+                                <Button key={idx} sx={style.button} onClick={() => handleSelectVariant(variant)} variant="contained" size="small">{variant.option2}</Button>
                             ))
                         }
-
                     </Stack>
+
+
                 </CardActions>
             </CardContent>
         </Card>
