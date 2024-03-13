@@ -112,7 +112,7 @@ const DiapersCatalog = () => {
                             sx={style.title}
                         >
                             {
-                                groupedVariants && (
+                                groupedVariants.length > 0 && (
                                     <Typography variant='h5'>
                                         Total Results: {groupedVariants.length}
                                     </Typography>
